@@ -8,7 +8,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)//自增主键
     private Integer id;
-    @Column(name = "naem")//User类的参数对应数据库的参数（可无视该行）
+    @Column(name = "name")//User类的参数对应数据库的参数（可无视该行）
     private String name;
     private String password;
     private String sex;
@@ -63,10 +63,4 @@ public class User {
         this.phone = phone;
     }
 
-    public User(String name, String sex, Integer age, String phone) {
-        this.name = name;
-        this.sex = sex;
-        this.age = age;
-        this.phone = phone;
-    }
 }
