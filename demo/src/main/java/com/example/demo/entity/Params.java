@@ -3,6 +3,8 @@ package com.example.demo.entity;
 public class Params {
     private String name;
     private String phone;
+    private Integer pageNum;
+    private Integer pageSize;
 
     public String getName() {
         return name;
@@ -18,5 +20,21 @@ public class Params {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Integer getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 }

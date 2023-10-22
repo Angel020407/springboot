@@ -4,10 +4,8 @@ import com.example.demo.common.Result;
 import com.example.demo.entity.Params;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.github.pagehelper.PageInfo;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -21,6 +19,15 @@ public class UserController {
     @Resource
     private UserService userService;
 
+    @PostMapping
+    public Result save(@RequestBody User user) {
+        if (user.getId() == null) {
+            userService.add(user);
+        } else {
+            userService.update(user);
+        }
+        return Result.success();
+    }
     @GetMapping
     public Result findAll()
     {
@@ -30,7 +37,13 @@ public class UserController {
 
     @GetMapping("/search")
     public Result findBySearch(Params params) {
-        List<User> list = userService.findBySearch(params);
-        return Result.success(list);
+        PageInfo<User> info = userService.findBySearch(params);
+        return Result.success(info);
+    }
+
+    @DeleteMapping("/{id}")
+    public Result delete(@PathVariable Integer id) {
+        userService.delete(id);
+        return Result.success();
     }
 }
