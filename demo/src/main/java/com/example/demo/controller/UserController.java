@@ -19,6 +19,12 @@ public class UserController {
     @Resource
     private UserService userService;
 
+    @PostMapping("/login")
+    public Result login(@RequestBody User user) {
+        User loginUser = userService.login(user);
+        return Result.success(loginUser);
+    }
+
     @PostMapping
     public Result save(@RequestBody User user) {
         if (user.getId() == null) {
