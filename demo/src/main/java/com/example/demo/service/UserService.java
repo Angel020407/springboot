@@ -37,7 +37,7 @@ public class UserService {
         User admin = userDao.findByName(user.getName());
         if(admin != null) {
             //说明已经有了，不可重复添加
-            throw new CustomException("该用户名已存在，请勿重复添加");
+            throw new CustomException("该用户已存在!");
         }
         // 初始化一个密码
         if (user.getPassword() == null) {

@@ -13,19 +13,28 @@ import java.util.List;
 
 @CrossOrigin//解决跨域问题
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/index")
 public class UserController {
 
     @Resource
     private UserService userService;
 
-    @PostMapping("/login")
+    @PostMapping("/")
+
     public Result login(@RequestBody User user) {
-        User loginUser = userService.login(user);
-        return Result.success(loginUser);
+        User loginUser = userService.login(user);  // loginUser -> admin 123456 *** ***
+        Result tmp = Result.success(loginUser);
+        return tmp;
     }
 
-    @PostMapping
+    @PostMapping("/register")
+
+    public Result register(@RequestBody User user) {
+        userService.add(user);  // loginUser -> admin 123456 *** ***
+        return Result.success();
+    }
+
+    @PostMapping("/index")
     public Result save(@RequestBody User user) {
         if (user.getId() == null) {
             userService.add(user);
