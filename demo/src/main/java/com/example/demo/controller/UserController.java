@@ -13,7 +13,7 @@ import java.util.List;
 
 @CrossOrigin//解决跨域问题
 @RestController
-@RequestMapping("/index")
+@RequestMapping("/admin")
 public class UserController {
 
     @Resource
