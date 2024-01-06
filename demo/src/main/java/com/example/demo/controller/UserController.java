@@ -13,13 +13,17 @@ import java.util.List;
 
 @CrossOrigin//解决跨域问题
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/index")
 public class UserController {
 
     @Resource
     private UserService userService;
 
+<<<<<<< HEAD
     @PostMapping("/login")
+=======
+    @PostMapping("/")
+>>>>>>> 971cb7da388f26f9f656ce92d02de40f698cb6c7
 
     public Result login(@RequestBody User user) {
         User loginUser = userService.login(user);  // loginUser -> admin 123456 *** ***
