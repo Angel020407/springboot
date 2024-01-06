@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.dao.UserDao;
 import com.example.demo.entity.Params;
 import com.example.demo.entity.User;
+import com.example.demo.exception.CustomException;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,15 @@ public class UserService {
     }
 
     public void add(User user) {
-
+        if(user.getName() == null || "".equals(user.getName())) {
+            throw new CustomException("当前用户名为空！");
+        }
+        //可用于学号的不可重复添加
+        User admin = userDao.findByName(user.getName());
+        if(admin != null) {
+            //说明已经有了，不可重复添加
+            throw new CustomException("该用户已存在!");
+        }
         // 初始化一个密码
         if (user.getPassword() == null) {
             user.setPassword("123456");
@@ -43,6 +52,23 @@ public class UserService {
 
     public void delete(Integer id) {
         userDao.deleteByPrimaryKey(id);
+    }
+
+    public User login(User user) {
+        //判断数据是否为空
+        if (user.getName() == null || "".equals(user.getName())) {
+            throw new CustomException("用户名不能为空");
+        }
+        if (user.getPassword() == null || "".equals(user.getPassword())) {
+            throw new CustomException("密码不能为空");
+        }
+        //遍历数据库匹配用户输入,存入临时容器
+        User admin = userDao.findByNameAndPassword(user.getName(), user.getPassword());
+        if (admin == null) {
+            // 用户名或者密码有误，登录失败
+            throw new CustomException("用户名或密码输入错误");
+        }
+        return admin;
     }
 }
 
